@@ -440,6 +440,7 @@ static CVReturn OnDisplayLink(CVDisplayLinkRef CV_NONNULL displayLink,
 - (CVPixelBufferRef)copyPixelBuffer {
   if (_frame == NULL) {
     NSLog(@"Returning NULL from copyPixelBuffer");
+    return _frame;
   }
   CVBufferRetain(_frame);
   return _frame;
