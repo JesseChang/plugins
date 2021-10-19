@@ -440,10 +440,14 @@ static CVReturn OnDisplayLink(CVDisplayLinkRef CV_NONNULL displayLink,
 - (CVPixelBufferRef)copyPixelBuffer {
   if (_frame == NULL) {
     NSLog(@"Returning NULL from copyPixelBuffer");
-    return _frame;
   }
-  CVBufferRetain(_frame);
-  return _frame;
+    @try {
+        CVBufferRetain(_frame);
+    } @catch (NSException *exception) {
+        NSLog(@"copyPixelBuffer throws exception");
+    } @finally {
+        return _frame;
+    }
 }
 
 - (void)onTextureUnregistered:(NSObject<FlutterTexture>*)texture {
